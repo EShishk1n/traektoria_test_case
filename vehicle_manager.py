@@ -46,7 +46,7 @@ class VehicleManager:
         return requests.get(self.url).json(cls=VehicleDecoder)
 
     def get_vehicle(self, id: int) -> Vehicle:
-        url = f'{self.url}{id}/'
+        url = f'{self.url}/{id}'
         return requests.get(url).json(cls=VehicleDecoder)
 
     @classmethod
@@ -68,12 +68,12 @@ class VehicleManager:
 
     def add_vehicle(self, new_vehicle: Vehicle) -> None:
         requests.post(self.url, json=new_vehicle.__dict__)
-        print(f'{new_vehicle.name} {new_vehicle.model} has added')
+        print(f'{new_vehicle} has added')
 
     def update_vehicle(self, id: int, new_vehicle_info: Vehicle) -> None:
         url = f'{self.url}{id}/'
         requests.put(url, json=new_vehicle_info.__dict__)
-        print(f'{new_vehicle_info.name} {new_vehicle_info.model} has updated')
+        print(f'{new_vehicle_info} has updated')
 
     def delete_vehicle(self, id: int) -> None:
         url = f'{self.url}{id}/'
@@ -105,14 +105,14 @@ class VehicleManager:
         return sorted(distances_to_reference_vehicle.items(), key=lambda item: item[1])[0][0]
 
 
-# manager = VehicleManager(url='http://127.0.0.1:8000/vehicle/')
+manager = VehicleManager(url='https://test.tspb.su/test-task/vehicles')
 # print(manager.get_vehicles())
 # print(manager.get_vehicle(id=2))
-# print(manager.filter_vehicles({'year': 2011, 'color': 'gray'}))
+# print(manager.filter_vehicles({'year': 2015, 'color': 'black'}))
 # manager.add_vehicle(new_vehicle=Vehicle(name='Chevrolette', model='Niva', year='2011', color='pink', price='7000',
 #                                         latitude='61.235308', longitude='69.728326'))
 # manager.update_vehicle(id=16, new_vehicle_info=Vehicle(name='Chevrolette', model='Niva', year='2011', color='pink',
 #                                                        price='9500', latitude='61.235308', longitude='69.728326'))
 # manager.delete_vehicle(17)
-# print(manager.get_distance(id1=2, id2=3))
+# print(manager.get_distance(id1=8, id2=17))
 # print(manager.get_nearest_vehicle(3))
